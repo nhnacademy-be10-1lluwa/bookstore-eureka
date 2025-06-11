@@ -1,0 +1,48 @@
+name: Deploy Eureka to Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - name: Build with Maven
+        run: ./mvnw clean package -DskipTests
+
+      - name: Install expect
+        run: sudo apt-get update && sudo apt-get install -y expect
+
+      - name: SCP jar to server
+        run: |
+          expect << EOF
+          spawn scp -P 8822 target/*.jar ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_PATH }}/app.jar
+          expect "password:"
+          send "${{ secrets.REMOTE_PASS }}\r"
+          expect eof
+          EOF
+      
+      - name: SSH and restart app
+        run: |
+          expect << EOF
+          spawn ssh -p 8822 ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}
+          expect "password:"
+          send "${{ secrets.REMOTE_PASS }}\r"
+          expect "$ "
+          send "pkill -f 'java.*app.jar' || true\r"
+          send "nohup java -jar ${{ secrets.REMOTE_PATH }}/app.jar > ${{ secrets.REMOTE_PATH }}/app.log 2>&1 &\r"
+          send "exit\r"
+          expect eof
+          EOF
