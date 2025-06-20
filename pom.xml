@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nhnacademy</groupId>
-    <artifactId>illuwa</artifactId>
+    <artifactId>eureka-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>illuwa</name>
-    <description>illuwa</description>
+    <name>eureka-server</name>
+    <description>eureka-server</description>
     <url/>
     <licenses>
         <license/>
@@ -63,9 +63,6 @@
     </dependencyManagement>
 
     <build>
-        <finalName>
-            eureka-service
-        </finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
