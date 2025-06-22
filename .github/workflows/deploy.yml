@@ -32,14 +32,3 @@ jobs:
           source: "target/eureka-service.jar"
           target: "~/deploy/eureka"
           rm: false
-
-      - name: Run startup script on server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_IP }}
-          username: ${{ secrets.SSH_ID }}
-          password: ${{ secrets.REMOTE_PASS }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            chmod +x ~/deploy/eureka/startup.sh
-            ~/deploy/eureka/startup.sh
