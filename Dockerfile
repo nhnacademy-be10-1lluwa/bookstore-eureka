@@ -13,4 +13,4 @@ VOLUME /home/be10/be10-team1/logs
 EXPOSE 10318
 
 # 실행
-ENTRYPOINT ["java", "-jar", "/app/eureka-server.jar", "--spring.profiles.active=prod"]
+ENTRYPOINT ["java", "-jar", "/app/1lluwa-eureka-server.jar", "--spring.profiles.active=prod"]
