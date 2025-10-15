@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
 
-    <property name="LOG_PATH" value="/home/be10/be10-team1/deploy/eureka/logs" />
-    <property name="APP_NAME" value="eureka" />
+    <property name="LOG_PATH" value="/home/be10/be10-team1/logs" />
+    <property name="APP_NAME" value="eureka-server" />
 
     <!-- 파일 로그 출력용 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
